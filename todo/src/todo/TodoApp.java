@@ -14,6 +14,7 @@ public class TodoApp {
 
 		boolean isClose = false;
 		boolean isLogin = false;
+		boolean isFind = false;
 
 		String inputValue;
 		String inputUserName;
@@ -76,23 +77,27 @@ public class TodoApp {
 							sh.fillBlankRow(3);
 							System.console().readLine("Devam İçin Enter > ");
 
-							break;
+							isFind=true;
 
 						}
 
 					}
 
-					User u = new User();
+					if (!isFind) {
+						User u = new User();
 
-					u.setUserId(userSvc.getUserList().size() + 1);
-					u.setUserName(inputUserName);
+						u.setUserId(userSvc.getUserList().size() + 1);
+						u.setUserName(inputUserName);
 
-					userSvc.userAdd(u);
+						userSvc.userAdd(u);
 
-					System.out.println("Kullanıcı Tanımı Başarılı. " + inputUserName);
+						System.out.println("Kullanıcı Tanımı Başarılı. " + inputUserName);
 
-					sh.fillBlankRow(3);
-					System.console().readLine("Devam İçin Enter > ");
+						sh.fillBlankRow(3);
+						System.console().readLine("Devam İçin Enter > ");
+						
+					}
+					isFind=false;
 
 
 					break;
