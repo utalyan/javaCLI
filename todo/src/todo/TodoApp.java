@@ -18,8 +18,11 @@ public class TodoApp {
 
 		String inputValue;
 		String inputUserName;
+		
+		int findIndex = 0;
 
 		User loginUser = null;
+		Todo selectedTodo = null;
 
 		UserSeviceImpl userSvc = new UserSeviceImpl();
 		TodoServiceImpl todoSvc = new TodoServiceImpl();
@@ -158,8 +161,17 @@ public class TodoApp {
 					sh.fillStarOnLine(13);;
 					sh.fillBlankRow(3);
 
-					inputValue = System.console().readLine("Devam Ýçin Enter > ");
+					inputValue = System.console().readLine("Devam Ýçin Enter / Deðiþtirmek Ýçin Numara > ");
 
+					if (inputValue.matches("[0-9]")) {
+						findIndex = Integer.parseInt(inputValue) - 1;
+						selectedTodo = todoSvc.todoGetList().get(findIndex );
+						inputValue = System.console().readLine("Açýklama Giriniz (" + selectedTodo.getTodoDesc() + ") > ");
+						
+						selectedTodo.setTodoDesc(inputValue);
+						
+						todoSvc.todoGetList().set(findIndex, selectedTodo);
+					}
 					break;
 				case "3":
 					isLogin = false;
